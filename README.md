@@ -1,4 +1,4 @@
-# dgf_reader
+# dgf_translate
 
 This Python Library deals with reading DGF Files and converting them into a usable GIS File format that can be imported into GDAL, Fiona and other Geospatial libraries. 
 
@@ -8,13 +8,13 @@ This Python Library deals with reading DGF Files and converting them into a usab
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install.
 
 ```bash
-pip install dgf_reader
+pip install dgf_translate
 ```
 
 ## Usage
 
 ```python
-from dgf_reader import dgf_to_geojson
+from dgf_translate import dgf_to_geojson
 
 # returns geojson file path
 dgf_to_geojson('/home/usr/file.geojson', '/home/usr/file.geojson', in_crs=25833)
