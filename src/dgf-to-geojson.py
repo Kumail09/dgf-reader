@@ -45,5 +45,7 @@ def dgf_to_geojson(input_fp, output_fp, in_crs=4326, out_crs=3857):
                     geojson_object['features'].append(
                         {"type": "Feature", "geometry": geometry, "properties": properties})
         return write_to_file(geojson_object, output_fp)
+
     else:
         raise Exception('Invalid File format. Use any of the following files: ', formats)
+
