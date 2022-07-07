@@ -13,7 +13,7 @@ def transform_point(x, y, transformer):
     return transformer.transform(x, y)
 
 
-def dgf_to_geojson(input_fp, output_fp, in_crs=4326, out_crs=3857):
+def dgf_to_geojson(input_fp, output_fp, in_crs=4326, out_crs=4326):
     """
     Returns a Geojson Format Feature Collection. Only Valid for Point data at the moment
     :param input_fp: (Str)
@@ -33,12 +33,16 @@ def dgf_to_geojson(input_fp, output_fp, in_crs=4326, out_crs=3857):
         point_arr = [x.split(',') for x in re.findall(r'POINT = (.*);', content)]
         geom_type = re.findall(r'TYPE = [a-zA-Z]+;', content)[0]
         features_raw = zip(point_arr, data_arr)
+        print('CRS')
+        print(in_crs)
+        print(out_crs)
         transformer = Transformer.from_crs(f"epsg:{in_crs}", f"epsg:{out_crs}")
 
         if data_arr and geom_type == 'TYPE = POINT;':
             if len(data_arr[0]) == len(columns):
                 for point, data in features_raw:
-                    point = transform_point(float(point[0]), float(point[1]), transformer)
+                    print('POINT', point)
+                    point = transform_point(float(point[1]), float(point[0]), transformer)
                     print(point)
                     geometry = {"type": "Point", "coordinates": point}
                     properties = dict(zip(columns, data))
@@ -48,4 +52,5 @@ def dgf_to_geojson(input_fp, output_fp, in_crs=4326, out_crs=3857):
 
     else:
         raise Exception('Invalid File format. Use any of the following files: ', formats)
+
 
